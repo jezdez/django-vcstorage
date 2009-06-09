@@ -1,5 +1,6 @@
 import os
 from django.core.files.base import ContentFile
+from django.core.exceptions import ImproperlyConfigured
 from django.db.models import signals, TextField, FileField
 
 from vcstorage.storage import VcStorage
@@ -12,7 +13,9 @@ class VcFileField(FileField):
     """
     def __init__(self, upload_to='', storage=None, **kwargs):
         if storage is None:
-            storage = VcStorage()
+            raise ImproperlyConfigured(
+                "You can't use the VcFileField without passing a storage "
+                "implementation, e.g. 'vcstorage.storage.MercurialStorage'.")
         elif not isinstance(storage, VcStorage):
             raise TypeError("'storage' is not an instance of %s." % VcStorage)
         if not upload_to:

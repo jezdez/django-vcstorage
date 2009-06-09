@@ -1,7 +1,7 @@
 import os
 from django.db import models
 from vcstorage.fields import VcFileField
-from vcstorage.storage import VcStorage, GitStorage, BazaarStorage
+from vcstorage.storage import MercurialStorage, GitStorage, BazaarStorage
 
 def handle_attachment(instance, filename):
     return os.path.join(instance.title.lower(), filename)
@@ -10,7 +10,7 @@ class Entry(models.Model):
     "Example model that uses the VCSTORAGE_DEFAULT_BACKEND 'hg'"
     title = models.CharField(max_length=100)
     content = models.TextField()
-    attachment = VcFileField(upload_to=handle_attachment)
+    attachment = VcFileField(upload_to=handle_attachment, storage=MercurialStorage())
 
     class Meta:
         verbose_name = 'entry'
