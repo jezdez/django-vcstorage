@@ -6,7 +6,7 @@ def read(fname):
 
 setup(
     name = "django-vcstorage",
-    version = "0.1",
+    version = "0.1.1",
     url = 'http://bitbucket.org/jezdez/django-vcstorage/',
     license = "BSD",
     description = "A Django app that provides file storage backends for Mercurial, Git and Bazaar by using anyvc.",
