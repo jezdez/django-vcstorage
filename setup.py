@@ -9,7 +9,7 @@ setup(
     version = "0.1",
     url = 'http://bitbucket.org/jezdez/django-vcstorage/',
     license = "BSD",
-    description = "",
+    description = "A Django app that provides file storage backends for Mercurial, Git and Bazaar by using anyvc.",
     long_description = read('README'),
     author = 'Jannis Leidel',
     author_email = 'jannis@leidel.info',
