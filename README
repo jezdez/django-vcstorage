@@ -1,0 +1,8 @@
+This is a Django application which provides storage classes that use `anyvc`_ 
+to commit the uploaded files to one of the following version control systems: 
+Bazaar, Mercurial, Git. Besides it's based on Django's usual FileSystemStorage 
+backend.
+
+Make sure you've got a current development version of anyvc installed.
+
+.. _anyvc: http://bitbucket.org/ronnyPfannschmidt/anyvc/
