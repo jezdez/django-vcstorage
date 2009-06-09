@@ -49,7 +49,6 @@ class VcTextField(TextField):
         """
         Allow specifying a different format for the key used to identify
         versionized content in the model-definition.
-
         """
         self.storage = kwargs.pop('storage', VcStorage())
         self.key_format = kwargs.pop('key_format',
@@ -62,13 +61,19 @@ class VcTextField(TextField):
 
     def post_save(self, instance=None, **kwargs):
         data = getattr(instance, self.attname).encode('utf-8')
-        format_kwargs = get_format_kwargs(instance, self.attname)
-        key = self.key_format % format_kwargs
+        key = self.key_format % {
+            'app_label': instance._meta.app_label,
+            'model_name': instance._meta.object_name.lower(),
+            'instance_pk': instance.pk,
+            'field_name': self.attname}
         self.storage.save(key, ContentFile(data))
 
     def post_delete(self, instance=None, **kwargs):
-        format_kwargs = get_format_kwargs(instance, self.attname)
-        key = self.key_format % format_kwargs
+        key = self.key_format % {
+            'app_label': instance._meta.app_label,
+            'model_name': instance._meta.object_name.lower(),
+            'instance_pk': instance.pk,
+            'field_name': self.attname}
         self.storage.delete(key)
 
     def contribute_to_class(self, cls, name):
